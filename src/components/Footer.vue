@@ -18,20 +18,21 @@
     </v-footer>
 </template>
 
-<script>
-export default {
-    name: 'Footer',
-    data: () => ({
-        items: [
-            { title: "Home" },
-            { title: "Menu" },
-            { title: "Contact" },
-            { title: "About" }
-        ],
-        icons: ["mdi-facebook", "mdi-twitter", "mdi-instagram"],
-        currentYear: new Date().getFullYear()
-    }),
-}
+<script setup>
+import { ref } from 'vue';
+
+const items = ref([
+  { title: "Home" },
+  { title: "Menu" },
+  { title: "Contact" },
+  { title: "About" }
+]);
+
+const icons = ref(["mdi-facebook", "mdi-twitter", "mdi-instagram"]);
+
+const currentYear = ref(new Date().getFullYear());
+
+
 </script>
 <style scoped>
 .bg-grey-lighten-1 {
