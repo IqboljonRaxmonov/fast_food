@@ -1,9 +1,15 @@
 <template>
     <v-menu>
         <template v-slot:activator="{ props }">
-            <v-list-item lines="two" prepend-avatar="https://randomuser.me/api/portraits/women/81.jpg"
-                v-bind="props"></v-list-item>
+            <div class="d-flex align-center justify-space-around">
+                <v-avatar v-bind="props" v-if="image">
+                    <v-img alt="John" src="https://cdn.vuetifyjs.com/images/john.jpg"></v-img>
+                </v-avatar>
 
+                <v-avatar color="red" v-bind="props" v-else>
+                    <span class="text-h5">{{username}}</span>
+                </v-avatar>
+            </div>
         </template>
         <v-list>
             <v-list-item v-for="(item, i) in items" :key="i">
@@ -23,6 +29,8 @@ export default {
             { title: 'Click Me' },
             { title: 'Click Me 2' },
         ],
+        image: true,
+        username: "RI"
     }),
 }
 </script>
