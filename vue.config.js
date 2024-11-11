@@ -1,13 +1,16 @@
 const { defineConfig } = require('@vue/cli-service')
+const path = require('path')
 module.exports = defineConfig({
   pluginOptions: {
     vuetify: {
-			// https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vuetify-loader
+			
 		}
   },
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, 'src')
-    }
-  }
+  configureWebpack: {
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, 'src'),
+      },
+    },
+  },
 })

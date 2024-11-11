@@ -1,6 +1,6 @@
 <template>
-    <v-footer class="bg-grey-lighten-1 align-center">
-        <v-row class="align-center text-center">
+    <v-footer class="bg-yellow-lighten-1" d-flex flex-column>
+        <v-row class="align-center text-center" justify="center">
             <div class="bg-teal d-flex w-100 align-center px-4">
                 <v-btn v-for="item in items" :key="item.title" class="mx-2" color="white" rounded="xl" variant="text">
                     {{ item.title }}
