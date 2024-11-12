@@ -32,6 +32,11 @@ const routes = [{
         path: '/contact',
         name: "Biz bilan aloqa",
         component: importChildPages("contact.vue")
+      },
+      {
+        path: '/cabinet',
+        name: "Shaxsiy kabinet",
+        component: importChildPages("contact.vue")
       }
     ]
   }

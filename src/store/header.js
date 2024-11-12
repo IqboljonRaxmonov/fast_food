@@ -3,7 +3,7 @@ import { defineStore } from 'pinia';
 
 export const useHeaderStore = defineStore('header', {
   state: () => ({
-    sum: 500000,
+    sum: 0,
     dialog: false
   }),
   actions: {

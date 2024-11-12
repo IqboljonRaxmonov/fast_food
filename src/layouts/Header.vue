@@ -3,64 +3,115 @@ import { onMounted, ref } from 'vue';
 import { useHeaderStore } from '@/store/header';
 import { useLoginStore } from '@/store/login-dialog';
 import LoginDialog from '@/dialogs/login-dialog.vue';
-import AccountTooltip from '@/components/header/account-tooltip.vue';
+import Account from '@/components/header/Account.vue';
 
 const hesderStore = useHeaderStore();
 const loginStore = useLoginStore()
 
-const items = ref([
+const navItems = ref([
     { title: 'Menu', path: '/menu' },
     { title: 'Filiallar', path: '/branch' },
     { title: 'Biz haqimizda', path: '/about' },
     { title: "Bog'lanish", path: '/contact' },
 ]);
-const login = ref(localStorage.getItem('token') ? true : false)
 
-const showLoginPage = () => {
-  loginStore.dialog = true;
+const languages = ref([
+    { name: "UZ", code: 'UZ' },
+    { name: 'RU', code: 'RU' },
+    { name: 'ENG', code: 'US' },
+]);
+
+const selectedLanguage = ref('UZ');
+const cartTotal = hesderStore.sum;
+const login = ref(!!localStorage.getItem('loginToken'));
+const tab = ref(null);
+
+
+function changeLang() {
+    // 
 }
 
+const showLoginPage = () => {
+    loginStore.dialog = true;
+}
+
+
 onMounted(() => {
-    // login.value = localStorage.getItem('token') ? true : false
+    // 
 })
 
-const all_sum = hesderStore.sum;
-
 </script>
-<template>
-    <LoginDialog />
-    <v-card color="grey-lighten-4" height="50px" rounded="0" flat>
-        <v-toolbar density="compact">
-            <v-list-item lines="two" prepend-avatar="../../image.png" @click="$router.push('/')">
-            </v-list-item>
-            <v-tabs slider-color="teal-lighten-3" show-arrows>
-                <v-tab v-for="(item, i) in items" :key="i" :text="item.title" :value="'tab-' + i"
-                    @click="$router.push(`${item.path}`)"></v-tab>
-            </v-tabs>
 
+<template>
+    <LoginDialog style="margin: 0px;" />
+    <v-card color="grey-darken-4" height="64px" flat>
+        <v-toolbar density="compact" class="header-toolbar">
+            <!-- Logo Section -->
+            <v-list-item lines="two" prepend-avatar="../../image.png" @click="$router.push('/')">
+                <v-list-item-title class="font-weight-bold text-h6 text-white">MaxWay</v-list-item-title>
+            </v-list-item>
+
+            <!-- Navigation Links -->
+            <v-card>
+                <v-tabs v-model="tab" show-arrows slider-color="purple" >
+                    <v-tab v-for="(item, index) in navItems" :key="index" :text="item.title" class="text-white"
+                        @click="$router.push(item.path)">
+                        {{ item.title }}
+                    </v-tab>
+                </v-tabs>
+            </v-card>
+
+            <!-- Spacer to push content to the right -->
             <v-spacer></v-spacer>
 
-            <v-btn icon>
-                <v-icon>mdi-magnify</v-icon>
+            <!-- Delivery Option Section -->
+            <v-btn icon color="purple lighten-1">
+                <v-icon>mdi-map-marker</v-icon>
             </v-btn>
+            <div class="delivery-option text-white text-center">
+                <div style="margin-bottom: -10px;">Yetkazib berish yoki Olib ketish</div>
+                <v-btn text small color="purple lighten-3 text-lowercase" style="padding: 0px;">
+                    Qabul qilib olish turini tanlang
+                </v-btn>
+            </div>
+            <!-- language Select -->
+            <!-- <v-select v-model="selectedLanguage" :items="languages" item-title="name" item-value="code"
+                class="language-select text-white" disabled hide-details solo flat outlined @update:model-value="changeLang">
+            </v-select> -->
 
-            <v-btn icon>
+            <!-- Cart Button -->
+            <v-btn icon color="white">
                 <v-icon>mdi-cart</v-icon>
             </v-btn>
+            <span class="text-yellow bold" style="margin: 5px 0; word-spacing: 2px; font-size: 24px; font-weight: bold; 
+                                    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);">{{ cartTotal }} so'm </span>
 
+            <!-- User Account Button -->
             <v-btn icon>
-                <v-badge :content="all_sum" inline></v-badge>
-            </v-btn>
-
-            <v-btn icon>
-                <!-- <Account v-if="login" /> -->
-                <v-avatar color="info px-4 align-center text-center" @click="showLoginPage">
-                    <v-icon icon="mdi-account-circle" v-if="login"></v-icon>
-                    <AccountTooltip v-else/>
-                </v-avatar>
-            </v-btn>
-            <v-btn icon>
+                <Account v-if="login" />
+                <v-btn color="purple align-center" icon="mdi-account" @click="showLoginPage" v-else></v-btn>
             </v-btn>
         </v-toolbar>
     </v-card>
 </template>
+
+<style scoped lang="scss">
+.header-toolbar {
+    background-color: #1c1c1c;
+    /* Dark background color */
+    padding-left: 16px;
+}
+
+.text-white {
+    color: #ffffff !important;
+}
+
+.delivery-option {
+    margin-right: 16px;
+    font-size: 14px;
+}
+
+.language-select {
+    max-width: 100px;
+}
+</style>

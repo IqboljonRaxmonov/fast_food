@@ -22,7 +22,7 @@ const login = async () => {
 </script>
 
 <template>
-  <div class="pa-4 text-center">
+  <v-card class="pa-1 text-center">
     <v-dialog v-model="loginStore.dialog" max-width="600">
       <v-card title="Tizimga kirish" class="text-center">
         <v-card-text>
@@ -48,5 +48,5 @@ const login = async () => {
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </div>
+  </v-card>
 </template>
