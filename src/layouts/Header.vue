@@ -3,10 +3,11 @@ import { onMounted, ref } from 'vue';
 import { useHeaderStore } from '@/store/header';
 import { useLoginStore } from '@/store/login-dialog';
 import LoginDialog from '@/dialogs/login-dialog.vue';
-import Account from '@/components/header/Account.vue';
+import { useRouter } from 'vue-router';
 
 const hesderStore = useHeaderStore();
-const loginStore = useLoginStore()
+const loginStore = useLoginStore();
+const router = useRouter();
 
 const navItems = ref([
     { title: 'Menu', path: '/menu' },
@@ -32,7 +33,11 @@ function changeLang() {
 }
 
 const showLoginPage = () => {
-    loginStore.dialog = true;
+    if(login.value){
+        router.push('/cabinet');
+    }else{
+        loginStore.dialog = true;
+    }
 }
 
 
@@ -53,7 +58,7 @@ onMounted(() => {
 
             <!-- Navigation Links -->
             <v-card>
-                <v-tabs v-model="tab" show-arrows slider-color="purple" >
+                <v-tabs v-model="tab" show-arrows slider-color="purple-lighten-2" >
                     <v-tab v-for="(item, index) in navItems" :key="index" :text="item.title" class="text-white"
                         @click="$router.push(item.path)">
                         {{ item.title }}
@@ -65,7 +70,7 @@ onMounted(() => {
             <v-spacer></v-spacer>
 
             <!-- Delivery Option Section -->
-            <v-btn icon color="purple lighten-1">
+            <v-btn icon color="purple-lighten-2">
                 <v-icon>mdi-map-marker</v-icon>
             </v-btn>
             <div class="delivery-option text-white text-center">
@@ -83,13 +88,12 @@ onMounted(() => {
             <v-btn icon color="white">
                 <v-icon>mdi-cart</v-icon>
             </v-btn>
-            <span class="text-yellow bold" style="margin: 5px 0; word-spacing: 2px; font-size: 24px; font-weight: bold; 
+            <span variant="elevated" class="text-yellow bold" style="margin: 5px 0; word-spacing: 2px; font-size: 24px; font-weight: bold; 
                                     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);">{{ cartTotal }} so'm </span>
 
             <!-- User Account Button -->
             <v-btn icon>
-                <Account v-if="login" />
-                <v-btn color="purple align-center" icon="mdi-account" @click="showLoginPage" v-else></v-btn>
+                <v-btn color="purple align-center" icon="mdi-account" @click="showLoginPage"></v-btn>
             </v-btn>
         </v-toolbar>
     </v-card>

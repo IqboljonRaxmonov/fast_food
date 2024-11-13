@@ -1,18 +1,21 @@
 <script setup>
 import { ref } from 'vue';
 import { useLoginStore } from '@/store/login-dialog';
+import { useRouter } from 'vue-router';
 
-const loginStore = useLoginStore()
+const loginStore = useLoginStore();
+const router = useRouter();
 
-const username = ref("")
-const password = ref("")
-const show = ref(false)
-const errorMessage = ref('')
+const username = ref("");
+const password = ref("");
+const show = ref(false);
+const errorMessage = ref('');
 
 const login = async () => {
   await loginStore.login('loginStore/loginAction', { username: username.value, password: password.value })
     .then(() => {
-      errorMessage.value = ""
+      errorMessage.value = "";
+      router.push('/cabinet');
     })
     .catch(responseErrorMessage => {
       errorMessage.value = responseErrorMessage;

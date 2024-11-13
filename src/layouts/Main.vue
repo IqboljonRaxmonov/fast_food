@@ -1,18 +1,11 @@
+<script setup>
+import Header from './../layouts/Header.vue';
+import Footer from './Footer.vue';
+
+</script>
 <template>
     <Header />
-    <RouterView/>
-    <!-- <Footer /> -->
+    <v-divider></v-divider>
+    <RouterView />
+    <Footer />
 </template>
-
-<script>
-// import Footer from './../layouts/Footer.vue';
-import Header from './../layouts/Header.vue';
-
-export default {
-    name: 'Main',
-    components: { Header },
-    data: () => ({
-        //
-    }),
-}
-</script>

@@ -2,13 +2,14 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 // Lazy Loading Routes 
 const importLayoutPages = (path) => {
-  return  () => import(`@/layouts/${path}`)
+  return () => import(`@/layouts/${path}`)
 }
 const importChildPages = (path) => {
   return () => import(`../pages/${path}`)
 }
 
-const routes = [{
+const routes = [
+  {
     path: '/',
     name: 'auth',
     component: importLayoutPages('Main.vue'),
@@ -32,12 +33,15 @@ const routes = [{
         path: '/contact',
         name: "Biz bilan aloqa",
         component: importChildPages("contact.vue")
-      },
-      {
-        path: '/cabinet',
-        name: "Shaxsiy kabinet",
-        component: importChildPages("contact.vue")
       }
+    ]
+  },
+  {
+    path: '/cabinet',
+    name: "Shaxsiy kabinet",
+    component: importChildPages("cabinet.vue"),
+    children: [
+      //
     ]
   }
 ]
